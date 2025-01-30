@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, Index } from "typeorm";
+import { Account } from "src/account/entities/account.entity";
+import { SEX } from "src/enum/sex.enum";
+import { Entity, PrimaryGeneratedColumn, Column, Index, OneToMany } from "typeorm";
 
 @Entity()
 export class User {
@@ -33,13 +35,13 @@ export class User {
   @Column({ type: 'varchar' })
   password: string;
 
-  @Column({ type: 'enum', enum: ['male', 'female'] })
-  /**
-   * m - male
-   * f - female
-   */
+  @Column({
+    type: 'enum',
+    enum: SEX,
+    default: SEX.FEMALE
+  })
   sex: string;
 
-  // @OneToMany(() => OtherEntity, otherEntity => otherEntity.user)
-  // otherEntities: OtherEntity[];
+  @OneToMany(() => Account, account => account.user)
+  accounts: Account[];
 }

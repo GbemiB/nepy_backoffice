@@ -29,7 +29,6 @@ export class UserRepository {
     return this.userRepository.findOne({ where: { email } });
   }
 
-
   deleteUserById(id: number): Promise<{ affected?: number }> {
     return this.userRepository.delete(id);
   }
