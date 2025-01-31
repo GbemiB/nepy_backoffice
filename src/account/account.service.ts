@@ -11,7 +11,7 @@ export class AccountService {
     private readonly accountRepository: AccountRepository
   ) { }
 
-  async create(createAccountDto: CreateAccountDto) {
+  async createAccount(createAccountDto: CreateAccountDto) {
     const { accountNumber, accountType, userId, balance } = createAccountDto;
     const user = await this.userRepository.findUserById(userId);
     if (!user) {
@@ -27,11 +27,19 @@ export class AccountService {
     return this.accountRepository.saveAccount(account);
   }
 
-  async findAll() {
-    return this.accountRepository.findAllAccounts();
+  async findAllAccounts(page: number = 1, limit: number = 10) {
+    const [accounts, total] = await this.accountRepository.findAllAccounts(page, limit);
+
+    return {
+      data: accounts,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
   }
 
-  findOne(id: number) {
+  findOneAccount(id: number) {
     const account = this.accountRepository.findAccountById(id);
     if (!account) {
       throw new NotFoundException(`Account with ID ${id} not found`);
@@ -39,7 +47,7 @@ export class AccountService {
     return account;
   }
 
-  async update(id: number, updateAccountDto: UpdateAccountDto) {
+  async updateAccount(id: number, updateAccountDto: UpdateAccountDto) {
     const existingAccount = await this.accountRepository.findAccountById(id);
     if (!existingAccount) {
       throw new NotFoundException(`Account with ID ${id} not found`);
@@ -53,7 +61,7 @@ export class AccountService {
     return this.accountRepository.saveAccount(updatedAccount);
   }
 
-  async remove(id: number) {
+  async removeAccount(id: number) {
     const result = await this.accountRepository.deleteAccountById(id);
     if (result.affected === 0) {
       throw new NotFoundException(`Account with ID ${id} not found.`);

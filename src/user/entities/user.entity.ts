@@ -1,4 +1,5 @@
 import { Account } from "src/account/entities/account.entity";
+import { Customer } from "src/customer/entities/customer.entity";
 import { SEX } from "src/enum/sex.enum";
 import { Entity, PrimaryGeneratedColumn, Column, Index, OneToMany } from "typeorm";
 
@@ -30,6 +31,9 @@ export class User {
   nationality: string;
 
   @Column({ type: 'varchar', length: 50 })
+  address: string;
+
+  @Column({ type: 'varchar', length: 50 })
   username: string;
 
   @Column({ type: 'varchar' })
@@ -44,4 +48,7 @@ export class User {
 
   @OneToMany(() => Account, account => account.user)
   accounts: Account[];
+
+  @OneToMany(() => Customer, customer => customer.referral)
+  customers: Customer[];
 }

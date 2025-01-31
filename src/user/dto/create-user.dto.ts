@@ -33,6 +33,10 @@ export class CreateUserDto {
   nationality: string;
 
   @IsNotEmpty()
+  @MinLength(3, { message: 'Address must have at least 3 characters.' })
+  address: string;
+
+  @IsNotEmpty()
   @MinLength(3, { message: 'Username must have at least 3 characters.' })
   username: string;
 

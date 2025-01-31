@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { databaseConfig } from './config/database.config';
 import { AccountModule } from './account/account.module';
+import { CustomerModule } from './customer/customer.module';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { AccountModule } from './account/account.module';
       useFactory: (configService: ConfigService) => databaseConfig(),
     }),
     UserModule,
-    AccountModule],
+    AccountModule,
+    CustomerModule],
   controllers: [AppController],
   providers: [AppService],
 })

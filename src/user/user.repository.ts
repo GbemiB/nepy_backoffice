@@ -7,7 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class UserRepository {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
-  ) {}
+  ) { }
 
   createUser(user: Partial<User>): User {
     return this.userRepository.create(user);
@@ -17,8 +17,12 @@ export class UserRepository {
     return this.userRepository.save(user);
   }
 
-  findAllUsers(): Promise<User[]> {
-    return this.userRepository.find();
+  async findAllUsers(page: number, limit: number): Promise<[User[], number]> {
+    return this.userRepository.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+      relations: ['user'],
+    });
   }
 
   findUserById(id: number): Promise<User | null> {

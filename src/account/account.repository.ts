@@ -17,9 +17,14 @@ export class AccountRepository {
     return this.accountRepository.save(Account);
   }
 
-  findAllAccounts(): Promise<Account[]> {
-    return this.accountRepository.find({relations: ['user']});
+  async findAllAccounts(page: number, limit: number): Promise<[Account[], number]> {
+    return this.accountRepository.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+      relations: ['user'], 
+    });
   }
+
   async findAccountById(id: number): Promise<Account | null> {
     return this.accountRepository.findOne({
       where: { id },

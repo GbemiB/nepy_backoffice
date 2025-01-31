@@ -10,7 +10,7 @@ export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
   async createUser(createUserDto: CreateUserDto): Promise<User> {
-    const { firstname, lastname, middlename, dob, nationality, email, phoneNumber, username, password, sex } = createUserDto;
+    const { firstname, lastname, middlename, dob, nationality, address, email, phoneNumber, username, password, sex } = createUserDto;
 
     const existingUser = await this.userRepository.findUserByEmail(email);
     if (existingUser) {
@@ -25,6 +25,7 @@ export class UserService {
       middlename,
       dob,
       nationality,
+      address,
       email,
       phoneNumber,
       username,
@@ -35,11 +36,17 @@ export class UserService {
     return this.userRepository.saveUser(user);
   }
 
-  // todo: should ba paginated 
-  findAllUser(): Promise<User[]> {
-    return this.userRepository.findAllUsers();
-  }
+  async findAllUsers(page: number = 1, limit: number = 10) {
+    const [accounts, total] = await this.userRepository.findAllUsers(page, limit);
 
+    return {
+      data: accounts,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
+  }
   async viewUser(id: number): Promise<User> {
     const user = await this.userRepository.findUserById(id);
     if (!user) {

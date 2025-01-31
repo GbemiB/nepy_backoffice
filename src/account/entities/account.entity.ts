@@ -21,6 +21,6 @@ export class Account {
     @Column({ type: 'varchar' })
     balance: string;
 
-     @ManyToOne(() => User, user => user.accounts)
-      user: User;
+    @ManyToOne(() => User, user => user.accounts)
+    user: User;
 }
