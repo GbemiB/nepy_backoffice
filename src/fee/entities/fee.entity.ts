@@ -1,5 +1,5 @@
 import { FeeCategory } from "src/enum/fee-category.enum";
-import { Index, Column, ManyToOne } from "typeorm";
+import { Index, Column } from "typeorm";
 
 export class Fee {
     @Index()
