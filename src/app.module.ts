@@ -8,6 +8,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { databaseConfig } from './config/database.config';
 import { AccountModule } from './account/account.module';
 import { CustomerModule } from './customer/customer.module';
+import { FeeModule } from './fee/fee.module';
+import { RoleModule } from './role/role.module';
+import { PermissionModule } from './permission/permission.module';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -21,7 +25,11 @@ import { CustomerModule } from './customer/customer.module';
     }),
     UserModule,
     AccountModule,
-    CustomerModule],
+    CustomerModule,
+    FeeModule,
+    RoleModule,
+    PermissionModule,
+    AdminModule],
   controllers: [AppController],
   providers: [AppService],
 })
