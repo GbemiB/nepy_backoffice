@@ -1,7 +1,9 @@
+import { BaseEntity } from "src/base/entities/base.entity";
 import { FeeCategory } from "src/enum/fee-category.enum";
-import { Index, Column } from "typeorm";
+import { Index, Column, Entity } from "typeorm";
 
-export class Fee {
+@Entity()
+export class Fee extends BaseEntity{
     @Index()
     @Column({ type: 'varchar', unique: true })
     name: string;
