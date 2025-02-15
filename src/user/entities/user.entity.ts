@@ -1,3 +1,4 @@
+import { Exclude } from "class-transformer";
 import { Account } from "src/account/entities/account.entity";
 import { Customer } from "src/customer/entities/customer.entity";
 import { SEX } from "src/enum/sex.enum";
@@ -36,6 +37,7 @@ export class User {
   @Column({ type: 'varchar', length: 50 })
   username: string;
 
+  @Exclude()
   @Column({ type: 'varchar' })
   password: string;
 

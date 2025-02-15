@@ -20,8 +20,7 @@ export class UserRepository {
   async findAllUsers(page: number, limit: number): Promise<[User[], number]> {
     return this.userRepository.findAndCount({
       skip: (page - 1) * limit,
-      take: limit,
-      relations: ['user'],
+      take: limit
     });
   }
 

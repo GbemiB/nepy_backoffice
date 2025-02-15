@@ -12,6 +12,7 @@ import { FeeModule } from './fee/fee.module';
 import { RoleModule } from './role/role.module';
 import { PermissionModule } from './permission/permission.module';
 import { AdminModule } from './admin/admin.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -29,7 +30,8 @@ import { AdminModule } from './admin/admin.module';
     FeeModule,
     RoleModule,
     PermissionModule,
-    AdminModule],
+    AdminModule,
+    AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

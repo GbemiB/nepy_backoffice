@@ -80,4 +80,12 @@ export class UserService {
     }
     return "User deleted successfully";
   }
+
+  async findByEmail(email: string): Promise<User> {
+    const user = await this.userRepository.findUserByEmail(email);
+    if (!user) {
+      throw new NotFoundException(`User not found.`);
+    }
+    return user;
+  }
 }

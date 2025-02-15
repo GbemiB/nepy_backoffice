@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ClassSerializerInterceptor, UseInterceptors } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { CreateAdminDto } from './dto/create-Admin.dto';
 import { UpdateAdminDto } from './dto/update-Admin.dto';
 
+@UseInterceptors(ClassSerializerInterceptor)
 @Controller('admin')
 export class AdminController {
   constructor(private readonly adminService: AdminService) { }
